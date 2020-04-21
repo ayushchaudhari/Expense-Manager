@@ -167,6 +167,8 @@ public class SignUp extends javax.swing.JFrame {
                 ps.setString(3,fNameTextField.getText());
                 ps.setString(4,lNameTextField.getText());
                 ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Signed Up!");
+                ps.close();
                 con.close();
                 dispose();
                 }catch(SQLIntegrityConstraintViolationException e){System.out.println(e);

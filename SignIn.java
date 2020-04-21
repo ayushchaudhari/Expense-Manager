@@ -175,29 +175,28 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
             Statement st=con.createStatement();
             //PreparedStatement st=con.prepareStatement("select username,password from userdb where username=?");
             //st.setString(1,usernameTF.getText());
-            ResultSet rs=st.executeQuery("select uid,username,password from userdb ");
+            ResultSet rs=st.executeQuery("select uid,username,password,fname from userdb ");
             //ResultSet rs=st.executeQuery("select username,password from userdb where username="+usernameEntered);
             //ResultSetMetaData resultsetmetadata=rs.getMetaData();
             if(rs.next()==false){
                 System.out.println("result set is empty");
             }else{
                 boolean signInSuccess=false;
-                
                 do{
                     String pass=rs.getString("password");
                     String user=rs.getString("userName");
                     if(passEntered.equals(pass)==true && usernameEntered.equals(user)==true){
-                    JOptionPane.showMessageDialog(null, "Login Successfull");
-                    Page1 page1= new Page1();
-                    page1.username=user;
-                    page1.userid=rs.getInt("uid");
-                    page1.setVisible(true);
-                    signInSuccess=true;
+                        JOptionPane.showMessageDialog(null, "Login Successfull");
+                        WelcomePage welcome_page= new WelcomePage(rs.getInt("uid"),rs.getString("fname"));
+                        welcome_page.setVisible(true);
+                        signInSuccess=true;
                     }
                     System.out.println("Username="+user+"  Password="+pass);
                 }while(rs.next() && signInSuccess==false);
                  if(signInSuccess==false)
                      JOptionPane.showMessageDialog(null,"Invalid username or password entered!","Message", ERROR_MESSAGE);
+                 else
+                     dispose();
             }
          
             
