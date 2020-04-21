@@ -85,13 +85,11 @@ public class OpeningPage extends javax.swing.JFrame {
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
         // TODO add your handling code here:
-        dispose();
         new SignIn().setVisible(true);
     }//GEN-LAST:event_SignInButtonActionPerformed
 
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
         // TODO add your handling code here:
-        dispose();
         new SignUp().setVisible(true);
     }//GEN-LAST:event_SignUpButtonActionPerformed
 
