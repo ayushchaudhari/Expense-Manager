@@ -1,10 +1,10 @@
 package expense.manager;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.*;
-import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
@@ -49,8 +49,9 @@ public class SignUp extends javax.swing.JFrame {
         usernameTextField = new javax.swing.JTextField();
         passTextField = new javax.swing.JPasswordField();
         passTextField2 = new javax.swing.JPasswordField();
-        jLabel8 = new javax.swing.JLabel();
         SubmitBtn = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jLabel4.setText("First Name:");
 
@@ -72,52 +73,70 @@ public class SignUp extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setText("Sign Up");
-
-        SubmitBtn.setText("Submit");
+        SubmitBtn.setText("Sign Up");
         SubmitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SubmitBtnActionPerformed(evt);
             }
         });
 
+        backButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        backButton.setText("🡐");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Sign Up");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(165, 165, 165))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(backButton)
+                        .addGap(131, 131, 131)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(38, 38, 38)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1))
+                                .addGap(72, 72, 72))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel7)
+                                .addGap(34, 34, 34)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(passTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lNameTextField)
-                                .addComponent(fNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                .addComponent(usernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
-                        .addGap(78, 78, 78))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(SubmitBtn)
-                        .addGap(155, 155, 155))))
+                            .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(208, 208, 208)
+                        .addComponent(SubmitBtn)))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -125,8 +144,8 @@ public class SignUp extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(lNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -137,12 +156,13 @@ public class SignUp extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(passTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(SubmitBtn)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitBtnActionPerformed
@@ -152,41 +172,55 @@ public class SignUp extends javax.swing.JFrame {
         passEntered =String.valueOf(ch);
         char ch2[]=passTextField2.getPassword();
         passReEntered=String.valueOf(ch2);
-        if(passEntered.equals(passReEntered)){
-            //Class.forName("com.mysql.jdbc.Driver");
-            try{
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/expensemanager","root","root");
-                if(con!=null){
-                    System.out.println("Connection Successfull");
-                    }
-                //String sql="delete from expensemanager.userdb where username=userName;";
-                /*String sqlQuery="INSERT INTO `expensemanager`.`userdb` (username,password,fname,lname) VALUES(ps.setString(userName),ps.setString(passEntered),ps.setString(FName),ps.setString(LName));";*/
-                PreparedStatement ps=con.prepareStatement("INSERT INTO `expensemanager`.`userdb` (username,password,fname,lname) VALUES(?,?,?,?);"); 
-                ps.setString(1, usernameTextField.getText());
-                ps.setString(2, passEntered);
-                ps.setString(3,fNameTextField.getText());
-                ps.setString(4,lNameTextField.getText());
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Signed Up!");
-                ps.close();
-                con.close();
-                dispose();
-                }catch(SQLIntegrityConstraintViolationException e){System.out.println(e);
-                        JOptionPane.showMessageDialog(null, "Username is already in use!\nPlease use different username..","ERROR", ERROR_MESSAGE);
+        
+        if((!(usernameTextField.getText()).equals("")) && (!(fNameTextField.getText()).equals("")) && (!(lNameTextField.getText()).equals("")) && (!passEntered.equals("")) && (!passReEntered.equals(""))){
+            if(!passEntered.equals(passReEntered)){
+                JOptionPane.showMessageDialog(null,"Password strings are not matching!","ERROR", ERROR_MESSAGE);
+            }       
+            else{
+                //Class.forName("com.mysql.jdbc.Driver");
+                try{
+                    Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/expensemanager","root","root");
+                    /*Below code is just for jdbc connection testing purpose*/
+//                    if(con!=null){
+//                        //System.out.println("Connection Successfull");         /*Just for testing purpose*/
+//                    }
+                    
+                    PreparedStatement ps=con.prepareStatement("INSERT INTO `expensemanager`.`userdb` (username,password,fname,lname) VALUES(?,?,?,?);"); 
+                    ps.setString(1, usernameTextField.getText());
+                    ps.setString(2, passEntered);
+                    ps.setString(3,fNameTextField.getText());
+                    ps.setString(4,lNameTextField.getText());
+                    ps.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Signed Up!");
+                    ps.close();
+                    con.close();
+                    dispose();
+                    new OpeningPage().setVisible(true);
+                }catch(SQLIntegrityConstraintViolationException e){
+                System.out.println(e);
+                JOptionPane.showMessageDialog(null, "Username is already in use!\nPlease use different username..","ERROR", ERROR_MESSAGE);
                 }
-                catch(Exception e){
+                catch(HeadlessException | SQLException e){
                     System.out.println(e);
-                }   
-            
-        }       
+                }
+                
+            }  
+        }
         else{
-                JOptionPane.showMessageDialog(null,"PASSWORD STRINGS ARE NOT MATCHING!","ERROR", ERROR_MESSAGE);
-        }                          
+                    JOptionPane.showMessageDialog(null,"Please fill all the fields!","ERROR", ERROR_MESSAGE);            
+        }
     }//GEN-LAST:event_SubmitBtnActionPerformed
 
     private void usernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameTextFieldActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new OpeningPage().setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,23 +250,26 @@ public class SignUp extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       /* java.awt.EventQueue.invokeLater(new Runnable() {
+        /*
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SignUp().setVisible(true);
             }
-        });*/
+        });
+        */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SubmitBtn;
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField fNameTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField lNameTextField;
     private javax.swing.JPasswordField passTextField;
     private javax.swing.JPasswordField passTextField2;

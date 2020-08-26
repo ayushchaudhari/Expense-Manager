@@ -2,8 +2,7 @@ package expense.manager;
 
 
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.*;
@@ -12,7 +11,6 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 /* @author chaudhari ji*/
  public class SignIn extends javax.swing.JFrame{
-    int userid;
     String userName,passWord;
     /*Creates new form loginWindow*/
     public SignIn() {
@@ -27,7 +25,7 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
         usernameTF = new javax.swing.JTextField();
         passTF = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
-        submitButton = new javax.swing.JButton();
+        signInButton = new javax.swing.JButton();
         signupButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
@@ -49,14 +47,15 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Papyrus", 1, 20)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 153, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Sign In");
 
-        submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
+        signInButton.setText("Sign In");
+        signInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+                signInButtonActionPerformed(evt);
             }
         });
 
@@ -67,6 +66,7 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
             }
         });
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Create a new account ?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -85,24 +85,23 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
                             .addComponent(passTF, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(usernameTF, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(171, 171, 171)
+                        .addGap(134, 134, 134)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(submitButton))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(signInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(signupButton)))
-                .addContainerGap(118, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(222, 222, 222))
+                        .addComponent(signupButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(188, 188, 188)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -111,8 +110,8 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
                     .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
-                .addComponent(submitButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(signInButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(signupButton))
@@ -120,15 +119,15 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void usernameTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTFActionPerformed
         // TODO add your handling code here:
         
     }//GEN-LAST:event_usernameTFActionPerformed
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt){
-        
-    }
+
+    //Connection function java-sql
     public static Connection getCon(String username,String password){
 		Connection con=null;
 		try{
@@ -136,82 +135,87 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 		}catch(Exception e){System.out.println(e);}
 		return con;
 	}
-   /* public static boolean validate(String name,String pass){
-		boolean status=false;
-		try{
-			Connection con=getCon();
-                        if(con!=null)
-                        System.out.println("Connection Successfull by Sign In");
-                        PreparedStatement ps=con.prepareStatement("select username,password from expensemanager.userdb where username=?");
-			ps.setString(1,name);
-			ResultSet rs=ps.executeQuery();
-                     //   ResultSetMetaData resultsetmetadata=rs.getMetaData();
-                        String password=rs.getString("password");
-                        String username=rs.getString("username");
-                        if(pass==password && username==name){
-                           JOptionPane.showMessageDialog(null, "Login Successfull");
-                        }
-                        
-			con.close();
-		}catch(Exception e){System.out.println(e);}
-		
-		
-		return status;
-	}*/
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
+
+    private void signInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInButtonActionPerformed
         // TODO add your handling code here:
         String usernameEntered,passEntered;
         char ch[];
         usernameEntered =usernameTF.getText();
-        System.out.println(usernameEntered);
+        //System.out.println(usernameEntered);         /*Just for testing purpose*/
         ch= passTF.getPassword();
         passEntered =String.valueOf(ch);
-        try{
-            Connection con=getCon("root","root");
-            if(con!=null)
-                System.out.println("Connection Successfull by Sign In");
-            else
-                System.out.println("Connection Unsuccessfull by Sign In");
-            Statement st=con.createStatement();
-            //PreparedStatement st=con.prepareStatement("select username,password from userdb where username=?");
-            //st.setString(1,usernameTF.getText());
-            ResultSet rs=st.executeQuery("select uid,username,password,fname from userdb ");
-            //ResultSet rs=st.executeQuery("select username,password from userdb where username="+usernameEntered);
-            //ResultSetMetaData resultsetmetadata=rs.getMetaData();
-            if(rs.next()==false){
-                System.out.println("result set is empty");
-            }else{
+        //System.out.println(ch);                      /*Just for testing purpose*/
+        if(!usernameTF.getText().equals("") && !passEntered.equals("")){
+            try{
+    /*----------------------------------JDBC Connection----------------------------------------------*/
+                Connection con=getCon("root","root");
+                
+                /*Below code is just for testing the jdbc connection purpose*/
+//                if(con!=null)
+//                    System.out.println("Connection Successfull by Sign In");
+//                else
+//                    System.out.println("Connection Unsuccessfull by Sign In");
+    /*-----------------------------------------------------------------------------------------------*/
+             
+                Statement st=con.createStatement();
+    /*-------------------First-Logic-to-check-login-initials-and-getting-signed-in-------------------*/     
+    
+                ResultSet rs=st.executeQuery("select uid,username,password from userdb where username='"+usernameEntered+"'");
+                
                 boolean signInSuccess=false;
-                do{
+                
+                if(rs.next()==true){
                     String pass=rs.getString("password");
-                    String user=rs.getString("userName");
-                    if(passEntered.equals(pass)==true && usernameEntered.equals(user)==true){
-                        JOptionPane.showMessageDialog(null, "Login Successfull");
-                        WelcomePage welcome_page= new WelcomePage(rs.getInt("uid"),rs.getString("fname"));
-                        welcome_page.setVisible(true);
+                    if(pass.equals(passEntered)){
                         signInSuccess=true;
+                        JOptionPane.showMessageDialog(null, "Login Successfull");
                     }
-                    System.out.println("Username="+user+"  Password="+pass);
-                }while(rs.next() && signInSuccess==false);
-                 if(signInSuccess==false)
-                     JOptionPane.showMessageDialog(null,"Invalid username or password entered!","Message", ERROR_MESSAGE);
-                 else
-                     dispose();
-            }
-         
-            
-           // String pass=rs.getString("password");
-          //  String user=rs.getString("username");
-            /*if(passEntered.equals(pass)==true && usernameEntered.equals(user)==true){
-                JOptionPane.showMessageDialog(null, "Login Successfull");
-            }
-            else{
-                JOptionPane.showMessageDialog(null,"Invalid username or password entered!","Message", ERROR_MESSAGE);
-            } */ 
-            st.close();
-            con.close();
-	}catch(Exception e){System.out.println(e);}
-    }//GEN-LAST:event_submitButtonActionPerformed
+                }
+                if(signInSuccess==true){
+                    dispose();
+                    int userid=rs.getInt("uid");
+                    System.out.println(userid);
+                    new WelcomePage(userid).setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Invalid username or password entered!","ERROR", ERROR_MESSAGE);
+                }
+                       
+    /*----------------------------------------First-Login-Ends------------------------------------------*/
+    
+    
+    /*--------------------Second-Logic-to-check-login-initials-and-getting-signed-in--------------------*/
+                       
+//                ResultSet rs=st.executeQuery("select uid,username,password,fname from userdb ");
+//
+//                if(rs.next()==false){
+//                    //System.out.println("result set is empty");   /*Just for testing purpose*/
+//                    JOptionPane.showMessageDialog(null,"Invalid username or password entered!","Message", ERROR_MESSAGE);
+//                }else{
+//                   boolean signInSuccess=false;
+//                    do{
+//                        String pass=rs.getString("password");
+//                        String user=rs.getString("userName");
+//                        if(passEntered.equals(pass)==true && usernameEntered.equals(user)==true){
+//                            JOptionPane.showMessageDialog(null, "Login Successfull");
+//                            new WelcomePage(rs.getInt("uid")).setVisible(true);
+//                            signInSuccess=true;
+//                        }
+//                        //System.out.println("Username="+user+"  Password="+pass);  /*Just for testing purpose*/
+//                    }while(rs.next() && signInSuccess==false);
+//                    if(signInSuccess==false)
+//                        JOptionPane.showMessageDialog(null,"Invalid username or password entered!","Message", ERROR_MESSAGE);
+//                    else
+//                        dispose();
+//                }
+    /*----------------------------------------Second-Login-Ends------------------------------------------*/
+                                
+                st.close();
+                con.close();
+            }catch(HeadlessException | SQLException e){System.out.println(e);}
+        }else{
+            JOptionPane.showMessageDialog(null,"Invalid username or password entered!","ERROR", ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_signInButtonActionPerformed
 
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
         // TODO add your handling code here:
@@ -228,7 +232,8 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
      */
     public static void main(String args[]) {
         /* Create and display the form */
-       /* java.awt.EventQueue.invokeLater(new Runnable() {
+       /* 
+       java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
 			SignIn frameSignIn =new SignIn();
@@ -238,7 +243,8 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
                                            }
     
             }
-        });*/
+        });
+        */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -246,8 +252,8 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField passTF;
     private javax.swing.JLabel passwordLabel;
+    private javax.swing.JButton signInButton;
     private javax.swing.JButton signupButton;
-    private javax.swing.JButton submitButton;
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameTF;
     // End of variables declaration//GEN-END:variables

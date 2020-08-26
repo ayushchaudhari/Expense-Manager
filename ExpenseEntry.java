@@ -6,10 +6,10 @@
 package expense.manager;
 
 import static expense.manager.SignIn.getCon;
-import expense.manager.HintTextField;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,14 +17,13 @@ import java.sql.PreparedStatement;
  */
 public class ExpenseEntry extends javax.swing.JFrame {
     int userid;
-    WelcomePage p;
     /**
      * Creates new form ExpenseEntry
+     * @param uid
      */
-    public ExpenseEntry(int uid,WelcomePage p) {
-        initComponents();
+    public ExpenseEntry(int uid) {
         this.userid=uid;
-        this.p=p;
+        initComponents();
     }
 
     /**
@@ -37,16 +36,19 @@ public class ExpenseEntry extends javax.swing.JFrame {
     private void initComponents() {
 
         rupees_label = new javax.swing.JLabel();
-        expenseField =new javax.swing.JTextField();
+        expenseField = new javax.swing.JTextField();
         type_choice = new java.awt.Choice();
         submitButton = new javax.swing.JButton();
-        NoteTextField =  new HintTextField("Add a note");
-	
-	type_choice.add("Food");
-	type_choice.add("Tranportation");
-	type_choice.add("Health");
-	type_choice.add("Shopping");
-	type_choice.add("Utilities");
+        NoteTextField = new HintTextField("Add a note");
+        backButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
+        type_choice.add("Food");
+        type_choice.add("Tranportation");
+        type_choice.add("Health");
+        type_choice.add("Shopping");
+        type_choice.add("Utilities");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         rupees_label.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -70,34 +72,57 @@ public class ExpenseEntry extends javax.swing.JFrame {
             }
         });
 
+        NoteTextField.setText("Add a Note");
+
+        backButton.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        backButton.setText("🡐");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Expediture Entry");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(172, 172, 172)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(type_choice, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rupees_label, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(expenseField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(NoteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(193, 193, 193))))
+                        .addGap(172, 172, 172)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(type_choice, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rupees_label, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(expenseField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(NoteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
+                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(expenseField, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rupees_label))
@@ -105,12 +130,14 @@ public class ExpenseEntry extends javax.swing.JFrame {
                 .addComponent(type_choice, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NoteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(28, 28, 28)
                 .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
-
+        
         pack();
+        setLocationRelativeTo(null);
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void expenseFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expenseFieldActionPerformed
@@ -129,29 +156,38 @@ public class ExpenseEntry extends javax.swing.JFrame {
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         try{
             Connection con=getCon("root","root");
+            /*Below code is just for jdbc connection testing purpose*/
+            /*
             if(con!=null)
                 System.out.println("Connection Successfull!");
             else
                 System.out.println("Connection Unsuccessfull!");
+            */
             PreparedStatement ps=con.prepareStatement("INSERT INTO `expensemanager`.`universalpassbook` (uid,dateNtime,expense_type,credited,expense_debited,note) VALUES(?,NOW(),?,null,?,?);"); 
             ps.setInt(1, this.userid );
-            System.out.println(this.userid);
+            //System.out.println(this.userid);                          /*Just for testing purpose*/
             ps.setString(2, type_choice.getSelectedItem());
-            System.out.println(type_choice.getSelectedItem());
+            //System.out.println(type_choice.getSelectedItem());        /*Just for testing purpose*/
             String expense=expenseField.getText();
             float exp=Float.parseFloat(expense);
             ps.setFloat(3, exp);
-            System.out.println(exp);
+            //System.out.println(exp);                                  /*Just for testing purpose*/
             String note =NoteTextField.getText();
-            System.out.println(note);
-            ps.setString(4, note );
+            //System.out.println(note);                                 /*Just for testing purpose*/
+            ps.setString(4, note);
             ps.executeUpdate();
             ps.close();
             con.close();
             dispose();
-            this.p.setVisible(true);
-	}catch(Exception e){System.out.println(e);}
+            new WelcomePage(userid).setVisible(true);
+	}catch(NumberFormatException | SQLException e){System.out.println(e);}
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new WelcomePage(userid).setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
     
     /**
      * @param args the command line arguments
@@ -180,13 +216,15 @@ public class ExpenseEntry extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form 
+        //Create and display the form 
+        /*
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 new ExpenseEntry(1).setVisible(true);
             }
-        });*/
+        });
+        */
     }
 
     
@@ -195,7 +233,9 @@ public class ExpenseEntry extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField NoteTextField;
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField expenseField;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel rupees_label;
     private javax.swing.JButton submitButton;
     private java.awt.Choice type_choice;

@@ -4,24 +4,20 @@
  * and open the template in the editor.
  */
 package expense.manager;
-import expense.manager.SignIn.*;
-import java.awt.Image;
 import java.awt.event.WindowEvent;
-import javax.swing.ImageIcon;
 /**
  *
  * @author chaudhari ji
  */
 public class WelcomePage extends javax.swing.JFrame {
     int userid;
-    String fname;
     /**
      * Creates new form Page1
+     * @param uid
      */
-    public WelcomePage(int uid, String fname) {
-        initComponents();
+    public WelcomePage(int uid) {
         this.userid=uid;
-	this.fname=fname;
+        initComponents();
     }
 
     /**
@@ -36,15 +32,17 @@ public class WelcomePage extends javax.swing.JFrame {
         welcomeLabel = new javax.swing.JLabel();
         expenseButton = new javax.swing.JButton();
         passbookButton = new javax.swing.JButton();
-        usernameLabel = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        welcomeLabel.setFont(new java.awt.Font("Century Schoolbook", 1, 18)); // NOI18N
-        welcomeLabel.setText("WELCOME  TO  EXPENSE  MANAGER");
+        welcomeLabel.setFont(new java.awt.Font("Papyrus", 1, 18)); // NOI18N
+        welcomeLabel.setForeground(new java.awt.Color(0, 153, 255));
+        welcomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        welcomeLabel.setText("Welcome  To  Expense Manager");
 
         expenseButton.setText("EXPENSE");
+        expenseButton.setBorder(null);
         expenseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 expenseButtonActionPerformed(evt);
@@ -52,16 +50,17 @@ public class WelcomePage extends javax.swing.JFrame {
         });
 
         passbookButton.setText("PASSBOOK");
+        passbookButton.setBorder(null);
         passbookButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passbookButtonActionPerformed(evt);
             }
         });
 
-
-        usernameLabel.setText(this.fname);
-
+        logoutBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        logoutBtn.setForeground(java.awt.Color.red);
         logoutBtn.setText("Logout");
+        logoutBtn.setBorder(null);
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutBtnActionPerformed(evt);
@@ -73,48 +72,46 @@ public class WelcomePage extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(115, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(expenseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(passbookButton, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(welcomeLabel)))
-                .addContainerGap(99, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(passbookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(expenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(194, 194, 194))
+                    .addComponent(logoutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(logoutBtn))
-                .addGap(42, 42, 42)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(expenseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(28, 28, 28)
                 .addComponent(passbookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGap(90, 90, 90))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void passbookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passbookButtonActionPerformed
         // TODO add your handling code here:
-        
+        dispose();
+        new PassbookSearch(userid).setVisible(true);
     }//GEN-LAST:event_passbookButtonActionPerformed
 
     private void expenseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expenseButtonActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        new ExpenseEntry(userid,this).setVisible(true);
+        dispose();
+        new ExpenseEntry(userid).setVisible(true);
     }//GEN-LAST:event_expenseButtonActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
@@ -164,14 +161,14 @@ public class WelcomePage extends javax.swing.JFrame {
             public void run() {
                 new WelcomePage().setVisible(true);
             }
-        });*/
+        });
+        */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton expenseButton;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton passbookButton;
-    private javax.swing.JLabel usernameLabel;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }
